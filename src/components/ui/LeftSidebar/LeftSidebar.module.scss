@@ -1,0 +1,75 @@
+.wrapper {
+  background: white;
+  min-height: 100%;
+  flex-basis: 15%;
+  border-top-right-radius: 8px;
+  padding-left: 10px;
+  box-sizing: border-box;
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  & > a {
+    margin-top: 10%;
+    padding: 0 5px;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 80%;
+    border-radius: 5px;
+    background-color: #d3f3f5;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+
+    h2 {
+      line-height: 0;
+    }
+  }
+
+  hr {
+    position: relative;
+    margin-top: 20%;
+    width: calc(100% + 10px);
+    left: -10px
+  }
+
+  .projectsActions {
+    margin-top: 20%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    input {
+      height: 25px;
+    }
+
+    img {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  .projectsContainer {
+    margin-top: 10%;
+    margin-left: 5%;
+
+    .tasks > a {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+
+      img {
+        width: 15px;
+        height: 15px;
+      }
+    }
+
+  }
+
+}
