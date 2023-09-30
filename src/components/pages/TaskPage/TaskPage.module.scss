@@ -1,0 +1,13 @@
+.columnsWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  gap: 20px;
+  padding: 20px;
+  align-items: start;
+  min-height: 1000px;
+  flex-grow: 1;
+  box-sizing: border-box;
+  background: white;
+  border-top-left-radius: 8px;
+}
