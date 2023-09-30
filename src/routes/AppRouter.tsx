@@ -10,7 +10,7 @@ const AppRouter = () => {
         <div className={styles.wrapper}>
             <Routes>
                 <Route  path="/" element={<ProjectSelection/>} />
-                <Route path="/:projectId/:taskId" element={<TaskPage/>}/>
+                <Route path="/:projectId" element={<TaskPage/>}/>
             </Routes>
         </div>
 

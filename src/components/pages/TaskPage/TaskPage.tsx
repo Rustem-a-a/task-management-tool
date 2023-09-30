@@ -10,8 +10,8 @@ import {useParams, useSearchParams} from "react-router-dom";
 import {Column, Types} from "../../../types";
 
 const TaskPage: React.FC = () => {
-    const {taskId} = useParams()
-    console.log(taskId)
+    const {projectId} = useParams()
+    const project = useSelector((state: RootState) => state.projects).find(v => v.id === projectId)
     const data = useSelector((state: RootState) => state.tasks);
     const dispatch = useDispatch<AppDispatch>();
     // const [data, setData] = useState<Types>(initialState);
@@ -86,17 +86,29 @@ const TaskPage: React.FC = () => {
     };
 
     return (
-        <DragDropContext onDragEnd={onDragEnd}>
-            <div className={styles.columnsWrapper}>
-                {Object.values(data.columns).map((column) => {
-                    return (
-                        // <div className={styles.column}>
-                                <TaskColumn key={column.id} column={column} tasks={column.taskIds.map((taskId) => data.tasks[taskId])}/>
-                             // </div>
-                )
-                })}
+        <div className={styles.wrapper}>
+
+            <div className={styles.taskActionsTitle}>
+                <h1>{project?.name}</h1>
+                <div className={styles.taskActions}>
+                    <img src="/addTask.svg" alt="addTask"/>
+                    <input type="text"/>
+                    <select>
+                        options
+                    </select>
+                </div>
             </div>
-        </DragDropContext>
+            <DragDropContext onDragEnd={onDragEnd}>
+                <div className={styles.columnsWrapper}>
+                    {Object.values(data.columns).map((column) => {
+                        return (
+                            <TaskColumn key={column.id} column={column}
+                                        tasks={column.taskIds.map((taskId) => data.tasks[taskId])}/>
+                        )
+                    })}
+                </div>
+
+            </DragDropContext></div>
     );
 };
 
