@@ -7,15 +7,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../../store/store";
 import {updateColumnsId} from "../../../store/actions/taskActions";
 import {useParams, useSearchParams} from "react-router-dom";
-import {Column, Types} from "../../../types";
+import {Column, Project, Types} from "../../../types";
+import TaskActions from "../../ui/TaskActions/TaskActions";
 
 const TaskPage: React.FC = () => {
     const {projectId} = useParams()
-    const project = useSelector((state: RootState) => state.projects).find(v => v.id === projectId)
+    const project = useSelector((state: RootState) => state.projects).find(v => v.id === projectId) as Project
     const data = useSelector((state: RootState) => state.tasks);
     const dispatch = useDispatch<AppDispatch>();
-    // const [data, setData] = useState<Types>(initialState);
-
+    const handleFilterSelect = (selectedFilter: string) => {
+        // Здесь вы можете обработать выбранный фильтр
+        console.log(`Выбран фильтр: ${selectedFilter}`)}
     const onDragEnd = (result: DropResult) => {
         const {destination, source, draggableId} = result;
         console.log(source)
@@ -87,17 +89,8 @@ const TaskPage: React.FC = () => {
 
     return (
         <div className={styles.wrapper}>
+        <TaskActions project={project} onSelectFilter={handleFilterSelect} />
 
-            <div className={styles.taskActionsTitle}>
-                <h1>{project?.name}</h1>
-                <div className={styles.taskActions}>
-                    <img src="/addTask.svg" alt="addTask"/>
-                    <input type="text"/>
-                    <select>
-                        options
-                    </select>
-                </div>
-            </div>
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className={styles.columnsWrapper}>
                     {Object.values(data.columns).map((column) => {

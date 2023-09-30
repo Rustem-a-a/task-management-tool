@@ -24,7 +24,8 @@ const TaskColumn: React.FC<ColumnProps> = ({ column, tasks }) => {
                     >
                         <h1 onClick={()=>{
                         console.log(column.title)}}
-                        style={{color:setColor(column.title)}}>{column.title}</h1>
+                        // style={{color:setColor(column.title)}}
+                        >{column.title}</h1>
 
                         {tasks.map((task, index) => (
                                 <TaskCard key={task.id} task={task} index={index} columnTitle={column.title}/>

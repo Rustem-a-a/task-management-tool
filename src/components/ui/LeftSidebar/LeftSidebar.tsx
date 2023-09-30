@@ -6,6 +6,7 @@ import {Project} from "../../../types";
 import {addProject} from "../../../store/actions/projectActions";
 import {Link} from "react-router-dom";
 import Modal from "../Modal/Modal";
+import ProjectAddModal from "../ProjectAddModal/ProjectAddModal";
 const LeftSidebar = () => {
     const projects = useSelector((state:RootState) => state.projects)
     const dispatch = useDispatch()
@@ -52,7 +53,7 @@ const LeftSidebar = () => {
                 }
             </div>
             {
-                isModal && <Modal setIsModal={setIsModal} children={<h1>Modal from left</h1>} />
+                isModal && <Modal setIsModal={setIsModal}><ProjectAddModal setIsModal={setIsModal}/></Modal>
             }
         </div>
     );
