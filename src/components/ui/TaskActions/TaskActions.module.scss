@@ -22,21 +22,27 @@
       align-items: center;
       gap:10px;
       font-weight: bold;
-      span{
-        font-size: 20px;
-      }
 
-      img{
-        height: 25px;
-        width: 25px;
+      span{
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        img{
+          height: 25px;
+          width: 25px;
+          cursor: pointer;
+        }
+        font-size: 20px;
+        cursor: pointer;
       }
     }
-    input{
+    .input{
       height: 30px;
       border-radius: 5px;
       font-size: 16px;
       padding-left: 10px;
       border: 1px gray solid;
+      background-color: white;
     }
 
     .filterDropdown {
@@ -56,7 +62,8 @@
         border-radius: 5px;
         padding-left: 10px;
         border: 1px gray solid;
-
+        cursor: pointer;
+        background-color: white;
       }
     }
 

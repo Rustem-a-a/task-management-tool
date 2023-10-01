@@ -7,14 +7,17 @@ export const initialState:Project[] =
             id:'project-1',
             name: 'First project',
             start: new Date(),
-            finish:null
+            finish:null,
+            deadline:new Date()
 
         },
         {
             id:'project-2',
             name: 'Second project',
             start: new Date(),
-            finish:null
+            finish:null,
+            deadline:new Date()
+
 
         }
     ]

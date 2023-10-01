@@ -89,7 +89,7 @@ const TaskPage: React.FC = () => {
 
     return (
         <div className={styles.wrapper}>
-        <TaskActions project={project} onSelectFilter={handleFilterSelect} />
+        <TaskActions nameFor={'Add Task'} project={project.name} onSelectFilter={handleFilterSelect} />
 
             <DragDropContext onDragEnd={onDragEnd}>
                 <div className={styles.columnsWrapper}>

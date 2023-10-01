@@ -3,12 +3,12 @@ import styles from './TaskActions.module.scss'
 import {Project} from "../../../types";
 
 interface IProps  {
-    project:Project;
+    project?:string;
     onSelectFilter: (filter: string) => void;
+    nameFor:string
 }
-const TaskActions:FC<IProps> = ({project,onSelectFilter} ) => {
-    const [selectedFilter, setSelectedFilter] = useState<string>(''); // текущий выбранный фильтр
-
+const TaskActions:FC<IProps> = ({nameFor,project='Projects',onSelectFilter} ) => {
+    const [selectedFilter, setSelectedFilter] = useState<string>('');
     const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedValue = event.target.value;
         setSelectedFilter(selectedValue);
@@ -16,13 +16,13 @@ const TaskActions:FC<IProps> = ({project,onSelectFilter} ) => {
     };
     return (
         <div className={styles.taskActionsTitle}>
-            <h1>{project?.name}</h1>
+            <h1>{project}</h1>
             <div className={styles.taskActions}>
                 <div className={styles.taskActionsAddTask}>
-                    <img src="/addTask.svg" alt="addTask"/>
-                    <span>Add Task</span>
+
+                    <span><img src="/addTask.svg" alt="addTask"/> {nameFor}</span>
                 </div>
-                <input type="text" placeholder='search'/>
+                <input type="text" placeholder='search' className={styles.input}/>
                 <div className={styles.filterDropdown}>
                     <label htmlFor="filterSelect">Sort:</label>
                     <select

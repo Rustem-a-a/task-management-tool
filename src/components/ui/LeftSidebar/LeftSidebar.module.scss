@@ -14,17 +14,19 @@
   & > a {
     margin-top: 10%;
     padding: 0 5px;
-
     display: flex;
     align-items: center;
     gap: 10px;
     width: 80%;
     border-radius: 5px;
     background-color: #d3f3f5;
+    cursor: pointer;
 
     img {
       width: 20px;
       height: 20px;
+      cursor: pointer;
+
     }
 
     h2 {
@@ -52,6 +54,8 @@
     img {
       width: 30px;
       height: 30px;
+      cursor: pointer;
+
     }
   }
 

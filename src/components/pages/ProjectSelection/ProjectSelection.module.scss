@@ -1,3 +1,16 @@
-.wrapper {
-  flex-basis: 85%;
-}
+.wrapper{
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  .projects{
+    display: grid;
+    //grid-template-columns: ;
+    grid-auto-rows: 30px;
+    flex-grow: 1;
+    box-sizing: border-box;
+    background: white;
+    border-top-left-radius: 8px;
+    padding: 10px;
+
+  }
+  }

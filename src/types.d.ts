@@ -2,7 +2,9 @@ export interface Project{
     id:string;
     name:string;
     start:Date
-    finish: Date | null}
+    finish: Date | null
+    deadline:Date
+}
 
 export interface Projects{
     projects:Project[]

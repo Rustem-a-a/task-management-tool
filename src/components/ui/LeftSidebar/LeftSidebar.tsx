@@ -6,7 +6,7 @@ import {Project} from "../../../types";
 import {addProject} from "../../../store/actions/projectActions";
 import {Link} from "react-router-dom";
 import Modal from "../Modal/Modal";
-import ProjectAddModal from "../ProjectAddModal/ProjectAddModal";
+import ProjectAddModal from "../ProjectModal/ProjectModal";
 const LeftSidebar = () => {
     const projects = useSelector((state:RootState) => state.projects)
     const dispatch = useDispatch()
