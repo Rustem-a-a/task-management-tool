@@ -35,7 +35,7 @@ const TaskCard: React.FC<TaskProps> = ({ task, index,columnTitle }) => {
                         <div className={styles.taskInfo}>
                             <div className={styles.infoItem}>
                                 <span className={styles.infoLabel}>Создана:</span>
-                                <span className={styles.infoValue}>{task.createdAt}</span>
+                                <span className={styles.infoValue}>{task.start}</span>
                             </div>
                             <div className={styles.infoItem}>
                                 <span className={styles.infoLabel}>Срок:</span>

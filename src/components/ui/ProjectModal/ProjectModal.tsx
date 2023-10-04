@@ -8,7 +8,7 @@ interface INewProject {
     deadline: Date;
     start: Date;
 }
-const AddTaskForm: React.FC<IProps> = ({ setIsModal }) => {
+const ProjectModal: React.FC<IProps> = ({ setIsModal }) => {
     const [project, setProject] = useState<INewProject>({
         name: '',
         deadline: new Date(),
@@ -66,4 +66,4 @@ const AddTaskForm: React.FC<IProps> = ({ setIsModal }) => {
     );
 };
 
-export default AddTaskForm;
+export default ProjectModal;

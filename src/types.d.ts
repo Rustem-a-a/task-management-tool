@@ -6,15 +6,11 @@ export interface Project{
     deadline:Date
 }
 
-export interface Projects{
-    projects:Project[]
-}
-
 export interface Task {
     id: string;
     title: string;
     description: string;
-    createdAt: string;
+    start: string;
     workTime: string;
     deadline: string;
     priority: string;
@@ -22,7 +18,12 @@ export interface Task {
     status: string;
     subTasks: Task[];
     comments: Comment[];
+    // parentId:null
 }
+
+// export interface Projects{
+//     projects:Project[]
+// }
 
 export interface Column {
     id: string;

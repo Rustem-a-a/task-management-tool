@@ -5,6 +5,7 @@
   text-align: center;
   height: 48px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
 
   a {
@@ -28,6 +29,21 @@
         font-weight: bold;
       }
     }
+  }
+  .auth{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 20px;
+    .logInUp{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      h4{
+        cursor: pointer;
+      }
+    }
+
   }
 }
 

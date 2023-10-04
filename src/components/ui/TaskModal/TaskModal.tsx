@@ -19,7 +19,7 @@ const TaskModal = ({setIsModal,task}:IProps) => {
             <div className={styles.taskDetails}>
                 <div className={styles.detailItem}>
                     <span className={styles.detailLabel}>Создана:</span>
-                    <span className={styles.detailValue}>{task.createdAt}</span>
+                    <span className={styles.detailValue}>{task.start}</span>
                 </div>
                 <div className={styles.detailItem}>
                     <span className={styles.detailLabel}>Время в работе:</span>
