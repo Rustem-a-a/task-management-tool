@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './AuthModal.module.scss';
 import axios from "axios";
+import AuthService from "../../../services/AuthService";
 interface IProps{
     setIsModal :  React.Dispatch<React.SetStateAction<boolean>>
     setIsSignIn :  React.Dispatch<React.SetStateAction<boolean>>
@@ -26,10 +27,9 @@ const AuthModal: React.FC<IProps> = ({ setIsModal,isSignIn,isSignUp,setIsSignIn,
     };
 
     const signUp = async () => {
-        const {data} = await axios.post('http://localhost:4000/auth/registration',{username:user.username,email:user.email,password:user.password})
+        await AuthService.registration(user.username,user.email,user.password)
         setIsModal(false)
         setIsSignUp(false)
-        console.log(data)
     }
     return (
         <div className={styles.addTaskForm}
