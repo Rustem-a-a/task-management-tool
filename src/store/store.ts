@@ -1,19 +1,32 @@
 // store.ts
-import { createStore, combineReducers } from 'redux';
+import {applyMiddleware, createStore, combineReducers } from 'redux';
 import taskReducer from './reducers/taskReducer';
 import projectReducer from './reducers/projectReducer'
 import {Project, Types} from "../types";
+import createSagaMiddleware from 'redux-saga'
+import {userWatcher} from "../saga/userSaga";
+import {rootWatcher} from "../saga";
+import authReducer from "./reducers/authReducer";
+import {IUser} from "../types/IUser";
 
+const sagaMiddleware = createSagaMiddleware()
 const rootReducer = combineReducers({
     tasks: taskReducer,
-    projects:projectReducer
+    projects:projectReducer,
+    user:authReducer
 });
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer,applyMiddleware(sagaMiddleware));
+sagaMiddleware.run(rootWatcher)
 
 export interface RootState {
     tasks: Types;
-    projects:Project[]
+    projects:Project[];
+    user:{
+        user:IUser;
+        isAuth: boolean;
+        err:string
+    }
 }
 
 export type AppDispatch = typeof store.dispatch;

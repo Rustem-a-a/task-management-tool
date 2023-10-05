@@ -3,10 +3,10 @@ import {AuthResponse} from "../types/response/response";
 import {AxiosResponse} from "axios";
 
 class AuthService{
-    static async registration (username:string,email:string,password:string):Promise<AxiosResponse<AuthResponse>>{
+    static async registration ({username, email, password}:{username:string,email:string,password:string}):Promise<AxiosResponse<AuthResponse>>{
         return  axios.post<AuthResponse>('/auth/registration', {username,email,password})
     }
-    static async login (username:string,password:string):Promise<AxiosResponse<AuthResponse>>{
+    static async login ({username, password}:{username:string,password:string}):Promise<AxiosResponse<AuthResponse>>{
         return  axios.post<AuthResponse>('/auth/login', {username,password})
     }
     static async logout ():Promise<void>{

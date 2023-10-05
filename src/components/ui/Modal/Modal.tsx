@@ -1,6 +1,8 @@
 import styles from './Modal.module.scss'
 import React, {useEffect, useRef} from "react";
 import {Task} from "../../../types";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../store/store";
 
 
 interface IProps{

@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from './AuthModal.module.scss';
 import axios from "axios";
 import AuthService from "../../../services/AuthService";
+import {useDispatch, useSelector} from "react-redux";
+import {loginAsync, registrationAsync} from "../../../store/actions/authActions";
+import {RootState} from "../../../store/store";
 interface IProps{
     setIsModal :  React.Dispatch<React.SetStateAction<boolean>>
     setIsSignIn :  React.Dispatch<React.SetStateAction<boolean>>
@@ -20,21 +23,44 @@ const AuthModal: React.FC<IProps> = ({ setIsModal,isSignIn,isSignUp,setIsSignIn,
         email: '',
         password: ''
     });
+    const isAuth = useSelector((state:RootState) => state.user.isAuth)
+    const err = useSelector((state:RootState) => state.user.err)
+
+    const dispatch = useDispatch()
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
         setUser({ ...user, [name]: value });
     };
 
-    const signUp = async () => {
-        await AuthService.registration(user.username,user.email,user.password)
-        setIsModal(false)
-        setIsSignUp(false)
+    const signIn = async () => {
+        try {
+            dispatch(loginAsync({username:user.username,password:user.password}))
+
+        }catch (e) {
+            console.log(e)
+        }
+        // dispatch(loginAsync({username:user.username,password:user.password}))
+        // setIsModal(false)
+        // setIsSignUp(false)
     }
+    const signUp = () => {
+        dispatch(registrationAsync({...user}))
+            // setIsModal(false)
+            // setIsSignUp(false)
+    }
+    useEffect(()=>{
+        if(isAuth){
+            setIsModal(false)
+            setIsSignUp(false)
+
+        }
+    },[isAuth])
     return (
         <div className={styles.addTaskForm}
              onClick={e=>e.stopPropagation()}>
             <h1>Add project</h1>
+
             <div className={styles.name}>
                 <label><h2>Username:</h2></label>
                 <input
@@ -68,9 +94,9 @@ const AuthModal: React.FC<IProps> = ({ setIsModal,isSignIn,isSignUp,setIsSignIn,
                             setIsSignIn(false)
                             setIsSignUp(true)
                         }}>SignUp</h3>
+                        {err&&<p style={{color:'red'}}>{err}</p>}
                         <button onClick={()=>{
-                            setIsModal(false)
-                            setIsSignIn(false)
+                        signIn()
                         }
                             }>
                             <h2>Entry</h2>

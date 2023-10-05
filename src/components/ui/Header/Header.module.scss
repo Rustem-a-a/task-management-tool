@@ -35,13 +35,14 @@
     flex-direction: column;
     justify-content: center;
     margin-right: 20px;
+    h4{
+      cursor: pointer;
+    }
     .logInUp{
       display: flex;
       flex-direction: column;
       justify-content: center;
-      h4{
-        cursor: pointer;
-      }
+
     }
 
   }

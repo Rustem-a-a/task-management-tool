@@ -3,14 +3,17 @@ import styles from './Header.module.scss';
 import {Link} from "react-router-dom";
 import Modal from "../Modal/Modal";
 import AuthModal from "../AuthModal/AuthModal";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../store/store";
+import {logoutAsync} from "../../../store/actions/authActions";
 
 const Header: FC = () => {
     const [isSignIn, setIsSignIn] = useState<boolean>(false);
     const [isSignUp, setIsSignUp] = useState<boolean>(false);
     const [isSignOut, setIsSignOut] = useState<boolean>(false);
-    const [isAuth, setIsAuth] = useState<boolean>(false);
     const [isModal, setIsModal] = useState<boolean>(false);
-
+    const isAuth = useSelector((state:RootState) => state.user.isAuth)
+    const dispatch = useDispatch()
     return (
         <header className={styles.header}>
             <Link to='/'>
@@ -20,7 +23,7 @@ const Header: FC = () => {
             <div className={styles.auth}>
                 {
                     isAuth
-                          ?   <h4 onClick={()=>{setIsAuth(false)}}>SignOut</h4>
+                          ?   <h4 onClick={()=>{dispatch(logoutAsync())}}>SignOut</h4>
                           :    <div className={styles.logInUp}>
                                  <h4 onClick={()=>{
                                      setIsModal(true)

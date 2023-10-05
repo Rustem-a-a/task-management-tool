@@ -7,6 +7,8 @@ import TaskActions from "../../ui/TaskActions/TaskActions";
 
 const ProjectSelection: FC = () => {
         const projects = useSelector((state:RootState) => state.projects)
+    const isAuth = useSelector((state:RootState) => state.user.isAuth)
+    console.log(isAuth)
     const handleFilterSelect = (selectedFilter: string) => {
         // Здесь вы можете обработать выбранный фильтр
         console.log(`Выбран фильтр: ${selectedFilter}`)}
@@ -19,10 +21,7 @@ const ProjectSelection: FC = () => {
                 <p>project.start</p>
                 <p>project.deadline</p>
                 <p>project.finish</p>
-
-
-
-                {
+                { isAuth&&
                     projects.map(project=><Link key={project.id} to={`/${project.id}`}>
                         <p>{project.name}</p>
                     </Link>)}
