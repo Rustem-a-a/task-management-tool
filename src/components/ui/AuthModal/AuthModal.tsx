@@ -24,7 +24,8 @@ const AuthModal: React.FC<IProps> = ({ setIsModal,isSignIn,isSignUp,setIsSignIn,
         password: ''
     });
     const isAuth = useSelector((state:RootState) => state.user.isAuth)
-    const err = useSelector((state:RootState) => state.user.err)
+    const stateError = useSelector((state:RootState) => state.user.stateError)
+    console.log(stateError)
 
     const dispatch = useDispatch()
 
@@ -34,20 +35,10 @@ const AuthModal: React.FC<IProps> = ({ setIsModal,isSignIn,isSignUp,setIsSignIn,
     };
 
     const signIn = async () => {
-        try {
             dispatch(loginAsync({username:user.username,password:user.password}))
-
-        }catch (e) {
-            console.log(e)
-        }
-        // dispatch(loginAsync({username:user.username,password:user.password}))
-        // setIsModal(false)
-        // setIsSignUp(false)
     }
     const signUp = () => {
         dispatch(registrationAsync({...user}))
-            // setIsModal(false)
-            // setIsSignUp(false)
     }
     useEffect(()=>{
         if(isAuth){
@@ -63,6 +54,7 @@ const AuthModal: React.FC<IProps> = ({ setIsModal,isSignIn,isSignUp,setIsSignIn,
 
             <div className={styles.name}>
                 <label><h2>Username:</h2></label>
+                {stateError?.errors?.length>0 && <p style={{color:'red'}}>{stateError.errors.find(v => v.path === 'username')?.msg}</p>}
                 <input
                     type="text"
                     name="username"
@@ -72,6 +64,7 @@ const AuthModal: React.FC<IProps> = ({ setIsModal,isSignIn,isSignUp,setIsSignIn,
             </div>
             {isSignUp && <div className={styles.name}>
                 <label><h2>Email:</h2></label>
+                {stateError?.errors?.length>0 && <p style={{color:'red'}}>{stateError.errors.find(v => v.path === 'email')?.msg}</p>}
                 <input
                     type="text"
                     name="email"
@@ -81,6 +74,7 @@ const AuthModal: React.FC<IProps> = ({ setIsModal,isSignIn,isSignUp,setIsSignIn,
             </div>}
             <div className={styles.name}>
                 <label><h2>Password:</h2></label>
+                {stateError?.errors?.length>0 && <p style={{color:'red'}}>{stateError.errors.find(v => v.path === 'password')?.msg}</p>}
                 <input
                     type="text"
                     name="password"
@@ -94,7 +88,7 @@ const AuthModal: React.FC<IProps> = ({ setIsModal,isSignIn,isSignUp,setIsSignIn,
                             setIsSignIn(false)
                             setIsSignUp(true)
                         }}>SignUp</h3>
-                        {err&&<p style={{color:'red'}}>{err}</p>}
+                        {stateError.message&&<p style={{color:'red'}}>{stateError.message}</p>}
                         <button onClick={()=>{
                         signIn()
                         }

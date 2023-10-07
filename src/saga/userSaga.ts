@@ -1,22 +1,23 @@
 import {put,takeEvery,call} from 'redux-saga/effects'
 import AuthService from "../services/AuthService";
 import {
-    err,
+    CHECK_AUTH_ASYNC,
+    checkAuth,
+    errorAction,
     login,
     LOGIN_ASYNC, logout, LOGOUT_ASYNC,
     registration,
     REGISTRATION_ASYNC,
-    registrationAsync
 } from "../store/actions/authActions";
-import {IUserRegistration} from "../types/IUser";
+
 
 function* registrationWorker (action:any){
     try{
         const {data} = yield call(AuthService.registration, action.payload)
         yield put(registration(data))
-    }catch (e) {
+    }catch (e:any) {
         console.log(e)
-
+        yield put(errorAction(e.response.data))
     }
 }
 
@@ -25,7 +26,8 @@ function* loginWorker (action:any){
         const {data} = yield call(AuthService.login,action.payload)
         yield put(login(data))
     }catch (e:any) {
-        yield put(err(e.response.data.message as string))
+        console.log(e)
+        yield put(errorAction(e.response.data))
     }
 }
 
@@ -37,8 +39,20 @@ function* logoutWorker (){
         console.log(e)
     }
 }
+
+function* checkAuthWorker (){
+    try{
+        const {data} = yield call(AuthService.refresh)
+        console.log(data)
+        yield put(checkAuth(data))
+    }catch (e) {
+        console.log(e)
+
+    }
+}
 export function* userWatcher(){
 yield takeEvery(REGISTRATION_ASYNC,registrationWorker)
 yield takeEvery(LOGIN_ASYNC,loginWorker)
 yield takeEvery(LOGOUT_ASYNC,logoutWorker)
+yield takeEvery(CHECK_AUTH_ASYNC,checkAuthWorker)
 }

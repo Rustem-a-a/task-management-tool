@@ -1,7 +1,8 @@
 import axios from "axios";
 import {AuthResponse} from "../types/response/response";
+import AuthService from "../services/AuthService";
 
-const API_URL = 'http://localhost:4000'
+export const API_URL = 'http://localhost:4000'
 
 const $api = axios.create({
     withCredentials:true,
@@ -13,13 +14,15 @@ $api.interceptors.request.use((config)=>{
     return config
 })
 
-$api.interceptors.response.use(config => config,async (error) => {
+$api.interceptors.response.use(config => {
+    return config
+},async (error) => {
     const originalRequest = error.config
-    if(error.response.status == 401 && error.config && error.config._isRetry){
+    if(error.response.status == 401 && error.config && !error.config._isRetry){
         originalRequest._isRetry = true
         try{
-            const response = await axios.get<AuthResponse>(API_URL+'auth/refresh',{withCredentials:true})
-            localStorage.setItem('token',response.data.accessToken)
+            const {data} = await AuthService.refresh()
+            localStorage.setItem('token',data.accessToken)
             return $api.request(originalRequest)
         }catch (e){
             console.log('Do not authorized')

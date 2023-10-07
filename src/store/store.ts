@@ -8,6 +8,7 @@ import {userWatcher} from "../saga/userSaga";
 import {rootWatcher} from "../saga";
 import authReducer from "./reducers/authReducer";
 import {IUser} from "../types/IUser";
+import {IErrorResponse} from "../types/response/errorResponse";
 
 const sagaMiddleware = createSagaMiddleware()
 const rootReducer = combineReducers({
@@ -25,7 +26,7 @@ export interface RootState {
     user:{
         user:IUser;
         isAuth: boolean;
-        err:string
+        stateError: IErrorResponse;
     }
 }
 

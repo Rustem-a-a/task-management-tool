@@ -1,19 +1,27 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import styles from './Header.module.scss';
 import {Link} from "react-router-dom";
 import Modal from "../Modal/Modal";
 import AuthModal from "../AuthModal/AuthModal";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
-import {logoutAsync} from "../../../store/actions/authActions";
+import {errorAction, logoutAsync} from "../../../store/actions/authActions";
+import {IErrorResponse} from "../../../types/response/errorResponse";
 
 const Header: FC = () => {
     const [isSignIn, setIsSignIn] = useState<boolean>(false);
     const [isSignUp, setIsSignUp] = useState<boolean>(false);
-    const [isSignOut, setIsSignOut] = useState<boolean>(false);
     const [isModal, setIsModal] = useState<boolean>(false);
     const isAuth = useSelector((state:RootState) => state.user.isAuth)
     const dispatch = useDispatch()
+    useEffect(() => {
+        return () => {
+            if (!isModal) {
+                dispatch(errorAction({} as IErrorResponse))
+            }
+        };
+    }, [isModal]);
+
     return (
         <header className={styles.header}>
             <Link to='/'>
