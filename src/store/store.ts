@@ -9,6 +9,7 @@ import {rootWatcher} from "../saga";
 import authReducer from "./reducers/authReducer";
 import {IUser} from "../types/IUser";
 import {IErrorResponse} from "../types/response/errorResponse";
+import {IColumnsTaskResponse, ProjectResponse} from "../types/response/response";
 
 const sagaMiddleware = createSagaMiddleware()
 const rootReducer = combineReducers({
@@ -21,8 +22,8 @@ const store = createStore(rootReducer,applyMiddleware(sagaMiddleware));
 sagaMiddleware.run(rootWatcher)
 
 export interface RootState {
-    tasks: Types;
-    projects:Project[];
+    tasks: IColumnsTaskResponse;
+    projects:ProjectResponse[];
     user:{
         user:IUser;
         isAuth: boolean;

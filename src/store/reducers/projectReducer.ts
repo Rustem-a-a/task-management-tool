@@ -1,50 +1,21 @@
-import {ADD_PROJECT} from "../actions/projectActions";
+import {CREATE_PROJECT, GET_PROJECT} from "../actions/projectActions";
 import {Project} from "../../types";
+import {ProjectResponse} from "../../types/response/response";
 
-export const initialState:Project[] =
-    [
-        {
-            id:'project-1',
-            name: 'First project',
-            start: new Date(),
-            finish:null,
-            deadline:new Date()
-
-        },
-        {
-            id:'project-2',
-            name: 'Second project',
-            start: new Date(),
-            finish:null,
-            deadline:new Date()
-
-
-        }
-    ]
+export const initialState:ProjectResponse[] = []
 
 
 const projectReducer = (state = initialState, action: any) => {
     switch (action.type) {
-        // case ADD_TASK:
-        //     return {
-        //         ...state,
-        //         tasks: [...state.tasks, action.payload],
-        //     };
-        // case DELETE_TASK:
-        //     return {
-        //         ...state,
-        //         tasks: state.tasks.filter((task) => task.id !== action.payload),
-        //     };
-        // case UPDATE_TASK:
-        //     return {
-        //         ...state,
-        //         tasks: state.tasks.map((task) =>
-        //             task.id === action.payload.id ? action.payload : task
-        //         ),
-        //     };
-        case ADD_PROJECT:
+        case GET_PROJECT:
             return (
-                [...state, action.payload])
+                [...action.payload]
+            )
+        case CREATE_PROJECT:
+            console.log(action.payload)
+            return (
+                [...state, action.payload]
+                )
             ;
         default:
             return state;

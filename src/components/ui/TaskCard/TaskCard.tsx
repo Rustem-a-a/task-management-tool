@@ -5,9 +5,10 @@ import Modal from "../Modal/Modal";
 import TaskModal from "../TaskModal/TaskModal";
 import {useLocation, useNavigate} from "react-router-dom";
 import styles from "./TaskCard.module.scss";
+import {ITaskResponse} from "../../../types/response/response";
 
 interface TaskProps {
-    task: Task;
+    task: ITaskResponse;
     index: number;
     columnTitle: string
 }
@@ -21,7 +22,7 @@ const TaskCard: React.FC<TaskProps> = ({ task, index,columnTitle }) => {
     }
     return (
         <>
-        <Draggable draggableId={task.id} index={index}>
+        <Draggable draggableId={task?._id} index={index}>
             {(provided) => (
                 <div className={`${styles.taskCard} ${styles[setColor(columnTitle)]}`}
                     onClick={()=>{
@@ -31,19 +32,19 @@ const TaskCard: React.FC<TaskProps> = ({ task, index,columnTitle }) => {
                     {...provided.dragHandleProps}
                 >
 
-                        <h2 className={styles.taskTitle}>{index+1}. {task.title}</h2>
+                        <h2 className={styles.taskTitle}>{index+1}. {task?.title}</h2>
                         <div className={styles.taskInfo}>
                             <div className={styles.infoItem}>
                                 <span className={styles.infoLabel}>Создана:</span>
-                                <span className={styles.infoValue}>{task.start}</span>
+                                <span className={styles.infoValue}>{task?.start}</span>
                             </div>
                             <div className={styles.infoItem}>
                                 <span className={styles.infoLabel}>Срок:</span>
-                                <span className={styles.infoValue}>{task.deadline}</span>
+                                <span className={styles.infoValue}>{task?.deadline}</span>
                             </div>
                             <div className={styles.infoItem}>
                                 <span className={styles.infoLabel}>Приоритет:</span>
-                                <span className={styles.infoValue}>{task.priority}</span>
+                                <span className={styles.infoValue}>{task?.priority}</span>
                             </div>
                         </div>
                 </div>

@@ -3,10 +3,11 @@ import styles from './TaskModal.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../../store/store";
 import {Task} from "../../../types";
+import {ITaskResponse} from "../../../types/response/response";
 
 interface IProps{
     setIsModal: React.Dispatch<React.SetStateAction<boolean>>;
-    task :Task
+    task :ITaskResponse
 }
 const TaskModal = ({setIsModal,task}:IProps) => {
 

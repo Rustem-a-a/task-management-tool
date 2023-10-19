@@ -3,9 +3,10 @@ import { Droppable } from 'react-beautiful-dnd';
 import TaskCard from '../TaskCard/TaskCard';
 import styles from './TaskColumn.module.scss'
 import {Column, Task} from "../../../types";
+import {IColumnsResponse, ITaskResponse} from "../../../types/response/response";
 interface ColumnProps {
-    column: Column;
-    tasks: Task[];
+    column: IColumnsResponse;
+    tasks: ITaskResponse[];
 }
 
 const TaskColumn: React.FC<ColumnProps> = ({ column, tasks }) => {
@@ -27,8 +28,8 @@ const TaskColumn: React.FC<ColumnProps> = ({ column, tasks }) => {
                         // style={{color:setColor(column.title)}}
                         >{column.title}</h1>
 
-                        {tasks.map((task, index) => (
-                                <TaskCard key={task.id} task={task} index={index} columnTitle={column.title}/>
+                        {tasks?.map((task:ITaskResponse, index:number) => (
+                                <TaskCard key={task?._id} task={task} index={index} columnTitle={column.title}/>
 
                         ))}
                         {provided.placeholder}

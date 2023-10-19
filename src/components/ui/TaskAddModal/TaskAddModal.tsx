@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import styles from './ProjectModal.module.scss';
-import {createProjectAsync} from "../../../store/actions/projectActions";
+import styles from './TaskAddModal.module.scss';
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../store/store";
-import {ICreateProject} from "../../../types/IProject";
+import {ICreateTask} from "../../../types/ITask";
+import {createTaskAsync} from "../../../store/actions/taskActions";
 interface IProps{
     setIsModal :  React.Dispatch<React.SetStateAction<boolean>>
 }
@@ -12,32 +11,34 @@ interface INewProject {
     deadline: string;
     start: string;
 }
-const ProjectModal: React.FC<IProps> = ({ setIsModal }) => {
+const TaskAddModal: React.FC<IProps> = ({ setIsModal }) => {
     // const userId = useSelector((state:RootState) => state.user.user.id)
-    const [project, setProject] = useState<ICreateProject>({
-        name: '',
-        deadline: '',
-        start: '',
+    const [task, setTask] = useState<ICreateTask>({
+        title: 'string',
+        start: '12.09.2023',
+        deadline: '11.12.2023',
+        priority: 'middle',
+        projectId: '6522acb56e82f84be734f3fd'
     });
-    console.log(project)
-    console.log(project.deadline)
+    console.log(task)
+
     const dispatch = useDispatch()
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
-        setProject({ ...project, [name]: value });
+        setTask({ ...task, [name]: value });
     };
 
     return (
         <div className={styles.addTaskForm}
         onClick={e=>e.stopPropagation()}>
-            <h1>Add project</h1>
+            <h1>Add Task</h1>
             <div className={styles.name}>
                 <label><h2>Название:</h2></label>
                 <input
                     type="text"
-                    name="name"
-                    value={project.name}
+                    name="title"
+                    value={task.title}
                     onChange={handleChange}
                 />
             </div>
@@ -47,9 +48,9 @@ const ProjectModal: React.FC<IProps> = ({ setIsModal }) => {
                     type="date"
                     name="deadline"
                     // value={project.deadline.toISOString().slice(0, 10)}
-                    value={project.deadline}
+                    value={task.deadline}
                     onChange={(e) => {
-                                setProject({ ...project, deadline: e.target.value});
+                                setTask({ ...task, deadline: e.target.value});
                         }
                     }
                 />
@@ -59,15 +60,16 @@ const ProjectModal: React.FC<IProps> = ({ setIsModal }) => {
                 <input
                     type="date"
                     name="start"
-                    value={project.start}
+                    value={task.start}
                     onChange={(e) => {
-                        setProject({ ...project, start: e.target.value});
+                        setTask({ ...task, start: e.target.value});
                     }
                 }
                 />
             </div>
             <button onClick={()=>{
-                dispatch(createProjectAsync({...project}))
+                console.log(task)
+                dispatch(createTaskAsync({...task}))
                 setIsModal(false)}}>
                 <h2
 
@@ -77,4 +79,4 @@ const ProjectModal: React.FC<IProps> = ({ setIsModal }) => {
     );
 };
 
-export default ProjectModal;
+export default TaskAddModal;
