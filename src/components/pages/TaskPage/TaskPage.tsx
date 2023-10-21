@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {DragDropContext} from 'react-beautiful-dnd';
 import {DropResult} from 'react-beautiful-dnd';
 import TaskColumn from '../../ui/TaskColumn/TaskColumn';
@@ -11,15 +11,25 @@ import TaskActions from "../../ui/TaskActions/TaskActions";
 import {IColumnsResponse, IColumnsTaskResponse, ProjectResponse} from "../../../types/response/response";
 import Modal from "../../ui/Modal/Modal";
 import TaskAddModal from "../../ui/TaskAddModal/TaskAddModal";
-import {editColumn, editColumnAsync} from "../../../store/actions/taskActions";
+import {editColumn, editColumnAsync} from "../../../store/actions/columnActions";
+import {getColumnsTaskAsync} from "../../../store/actions/taskActions";
 
 const TaskPage: React.FC = () => {
     const {projectId } = useParams()
     const project = useSelector((state: RootState) => state.projects).find(v => v._id === projectId) as ProjectResponse
-    const data = useSelector((state: RootState) => state.tasks);
+    const dataStore = useSelector((state: RootState) => state.tasks);
+    const [data, setData] = useState(dataStore);
+    // console.log(dataStore.columns)
     const dispatch = useDispatch<AppDispatch>();
     const [isModal, setIsModal] = useState<boolean>(false)
     const [searchValue, setSearchValue] = useState<string>('');
+    useEffect(() => {
+            dispatch(getColumnsTaskAsync(projectId as string))
+    }, [projectId]);
+
+    useEffect(() => {
+            setData(dataStore)
+    }, [dataStore]);
 
 
     const handleFilterSelect = (selectedFilter: string) => {
@@ -61,8 +71,9 @@ const TaskPage: React.FC = () => {
                 },
             };
             console.log(newData)
+            setData({...data,...newData})
+
             dispatch(editColumnAsync(projectId as string,newData))
-            // setData(newData);//
         } else {
             const startTaskIds = Array.from(startColumn.taskIds);
             startTaskIds.splice(source.index, 1);
@@ -78,7 +89,6 @@ const TaskPage: React.FC = () => {
                 taskIds: endTaskIds,
             };
             const newData: { columns:{[key:string]:IColumnsResponse} } = {
-
                 columns: {
                     ...data.columns,
                     [newStartColumn.id]: newStartColumn,
@@ -89,8 +99,9 @@ const TaskPage: React.FC = () => {
 
             // dispatch(updateColumnsId(newEndColumn.id,newData))
             console.log(projectId)
+            setData({...data,...newData});
+
             dispatch(editColumnAsync(projectId as string,newData))
-            // setData(newData);
         }
     };
 
@@ -108,7 +119,7 @@ const TaskPage: React.FC = () => {
                 </div>
             </DragDropContext>
             {
-                isModal && <Modal setIsModal={setIsModal}><TaskAddModal setIsModal={setIsModal}/></Modal>
+                isModal && <Modal setIsModal={setIsModal}><TaskAddModal projectId={projectId as string} setIsModal={setIsModal}/></Modal>
             }
         </div>
     );

@@ -8,6 +8,7 @@ import {
     GET_COLUMNS_TASK_ASYNC,
     getColumnsTask
 } from "../store/actions/taskActions";
+import {editColumn} from "../store/actions/columnActions";
 
 function* getTaskWorker (action:any){
     try{
@@ -22,7 +23,9 @@ function* getTaskWorker (action:any){
 function* createTaskWorker (action:any){
     try{
         const {data} = yield call(TaskService.createTask, action.payload)
-        yield put(createTask(data))
+        console.log(data)
+        yield put(createTask(data.newTask))
+        yield put(editColumn(data.columns))
     }catch (e:any) {
         console.log(e)
     }

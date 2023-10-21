@@ -44,7 +44,7 @@ function* checkAuthWorker (){
     try{
         const {data} = yield call(AuthService.refresh)
         console.log(data)
-        yield put(checkAuth(data))
+        yield put(checkAuth(data.user))
     }catch (e) {
         console.log(e)
 

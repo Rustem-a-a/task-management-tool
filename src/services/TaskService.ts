@@ -10,7 +10,7 @@ class TaskService{
     }
 
     static async createTask (createTaskData:ICreateTask):Promise<AxiosResponse<ITaskResponse>>{
-        return  $api.post<ITaskResponse>('/task/create', {...createTaskData})
+        return  $api.post<ITaskResponse>('/task/create', createTaskData)
 
     }
 

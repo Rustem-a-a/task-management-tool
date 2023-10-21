@@ -4,21 +4,17 @@ import {useDispatch, useSelector} from "react-redux";
 import {ICreateTask} from "../../../types/ITask";
 import {createTaskAsync} from "../../../store/actions/taskActions";
 interface IProps{
-    setIsModal :  React.Dispatch<React.SetStateAction<boolean>>
+    setIsModal :  React.Dispatch<React.SetStateAction<boolean>>;
+    projectId:string;
 }
-interface INewProject {
-    name: string;
-    deadline: string;
-    start: string;
-}
-const TaskAddModal: React.FC<IProps> = ({ setIsModal }) => {
+const TaskAddModal: React.FC<IProps> = ({ projectId,setIsModal }) => {
     // const userId = useSelector((state:RootState) => state.user.user.id)
     const [task, setTask] = useState<ICreateTask>({
-        title: 'string',
+        title: 'stringf',
         start: '12.09.2023',
         deadline: '11.12.2023',
         priority: 'middle',
-        projectId: '6522acb56e82f84be734f3fd'
+        projectId: projectId
     });
     console.log(task)
 
@@ -69,7 +65,7 @@ const TaskAddModal: React.FC<IProps> = ({ setIsModal }) => {
             </div>
             <button onClick={()=>{
                 console.log(task)
-                dispatch(createTaskAsync({...task}))
+                dispatch(createTaskAsync(task))
                 setIsModal(false)}}>
                 <h2
 
