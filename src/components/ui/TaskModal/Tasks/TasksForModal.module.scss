@@ -1,0 +1,38 @@
+.task {
+  width: 100%;
+
+  .taskTitle {
+    border-bottom: 2px solid #779398;
+    color: #333;
+    width: 90%;
+    margin-bottom: 4%;
+    font-size: 1.5rem;
+  }
+
+  .taskDetails {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+
+
+    .detailItem {
+      margin-bottom: 10px;
+      font-weight: bold;
+      color: #777;
+    }
+
+    .detailLabel {
+      color: #000000;
+      font-weight: bolder;
+      font-size: 1.3rem;
+    }
+
+    .detailValue {
+      color: #565353;
+    }
+
+    .taskInfo {
+      margin: 10px;
+    }
+  }
+}

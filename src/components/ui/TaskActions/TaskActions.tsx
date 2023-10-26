@@ -5,7 +5,7 @@ type filter = 'start' | 'deadline'
 
 interface IProps  {
     project?:string;
-    onSelectFilter: (filter: filter) => void;
+    onSelectFilter?: (filter: filter) => void;
     nameFor:string
     searchValue:string
     setSearchValue: React.Dispatch<React.SetStateAction<string>>
@@ -14,11 +14,11 @@ interface IProps  {
 }
 const TaskActions:FC<IProps> = ({searchValue,setSearchValue,setIsModal,nameFor,project='Projects',onSelectFilter} ) => {
     const [selectedFilter, setSelectedFilter] = useState<filter>('start');
-
     const handleFilterChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedValue:filter = event.target.value as filter;
         setSelectedFilter(selectedValue);
-        onSelectFilter(selectedValue);
+        if(onSelectFilter){onSelectFilter(selectedValue);}
+
     };
     return (
         <div className={styles.taskActionsTitle}>

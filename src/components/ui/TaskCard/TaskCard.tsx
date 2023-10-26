@@ -1,23 +1,25 @@
 import React, {useState} from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import {Task} from "../../../types";
 import Modal from "../Modal/Modal";
 import TaskModal from "../TaskModal/TaskModal";
-import {useLocation, useNavigate} from "react-router-dom";
 import styles from "./TaskCard.module.scss";
 import {ITaskResponse} from "../../../types/response/response";
+import {useSelector} from "react-redux";
+import {RootState} from "../../../store/store";
 
 interface TaskProps {
     task: ITaskResponse;
     index: number;
     columnTitle: string
+
 }
 
 const TaskCard: React.FC<TaskProps> = ({ task, index,columnTitle }) => {
+    const tasksStore = useSelector((state: RootState) => state.tasks.tasks);
     const [isCardModal, setIsCardModal] = useState<boolean>(false);
     const setColor = (name:string)=>{
-        if(name==='Queue')return 'purple'
-        else if(name==='Development')return 'orange'
+        if(name==='Queue')return 'orange'
+        else if(name==='Development')return 'purple'
         else return 'green'
     }
     return (
@@ -32,25 +34,25 @@ const TaskCard: React.FC<TaskProps> = ({ task, index,columnTitle }) => {
                     {...provided.dragHandleProps}
                 >
 
-                        <h2 className={styles.taskTitle}>{index+1}. {task?.title}</h2>
+                        <h1 className={styles.taskTitle}>{task?.title}</h1>
                         <div className={styles.taskInfo}>
                             <div className={styles.infoItem}>
-                                <span className={styles.infoLabel}>Создана:</span>
-                                <span className={styles.infoValue}>{task?.start}</span>
+                                <span className={styles.infoLabel}>Start:</span>
+                                <span className={styles.infoValue}>{task?.start.split('T')[0]}</span>
                             </div>
                             <div className={styles.infoItem}>
-                                <span className={styles.infoLabel}>Срок:</span>
-                                <span className={styles.infoValue}>{task?.deadline}</span>
+                                <span className={styles.infoLabel}>Deadline:</span>
+                                <span className={styles.infoValue}>{task?.deadline.split('T')[0]}</span>
                             </div>
                             <div className={styles.infoItem}>
-                                <span className={styles.infoLabel}>Приоритет:</span>
+                                <span className={styles.infoLabel}>Priority:</span>
                                 <span className={styles.infoValue}>{task?.priority}</span>
                             </div>
                         </div>
                 </div>
             )}
         </Draggable>
-            {isCardModal && <Modal setIsModal={setIsCardModal} children={<TaskModal setIsModal={setIsCardModal} task={task}/>}></Modal>}
+            {isCardModal && <Modal setIsModal={setIsCardModal} children={<TaskModal tasks={tasksStore}  task={task}/>}></Modal>}
         </>
     );
 };

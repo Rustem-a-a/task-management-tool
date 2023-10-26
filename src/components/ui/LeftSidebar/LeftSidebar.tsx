@@ -3,20 +3,20 @@ import styles from './LeftSidebar.module.scss'
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../../store/store";
 import {Project} from "../../../types";
-import {addProject} from "../../../store/actions/projectActions";
+import {createProject, createProjectAsync} from "../../../store/actions/projectActions";
 import {Link} from "react-router-dom";
 import Modal from "../Modal/Modal";
 import ProjectAddModal from "../ProjectModal/ProjectModal";
-const LeftSidebar = () => {
-    const projects = useSelector((state:RootState) => state.projects)
-    const dispatch = useDispatch()
+import {ProjectResponse} from "../../../types/response/response";
+
+interface IProps{
+    projects:ProjectResponse[]
+}
+const LeftSidebar = ({projects}:IProps) => {
+    // const projects = useSelector((state:RootState) => state.projects)
     const [newProject, setNewProject] = useState<Project>({}as Project);
     const [isModal, setIsModal] = useState<boolean>(false)
     const [searchValue, setSearchValue] = useState<string>('');
-    useEffect(()=>{
-        // dispatch()
-    }
-    )
     return (
         <div className={styles.wrapper}>
             <Link to = '/'>
@@ -32,20 +32,14 @@ const LeftSidebar = () => {
                      title='Add project'
                      onClick={()=>{
                          setIsModal(true)
-                         // dispatch(addProject({
-                         //     id:'project-3',
-                         //     name: 'Third project',
-                         //     start: new Date(),
-                         //     finish:null
-                         // }))
                      }}/>
             </div>
 
             <div className={styles.projectsContainer}>
                 {
                     projects.filter(v=>v.name.toLowerCase().includes(searchValue.toLowerCase())).map(project=>
-                        <div className={styles.tasks}>
-                            <Link key={project.id} to={`/${project.id}`}>
+                        <div className={styles.tasks} key={project._id}>
+                            <Link to={`/${project._id}`}>
                                 <img src="/task.svg" alt="task"/>
                                 <p>{project.name}</p>
                             </Link>

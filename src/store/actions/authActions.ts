@@ -12,6 +12,12 @@ export const ERR = 'ERR';
 export const CHECK_AUTH = 'CHECK_AUTH';
 export const CHECK_AUTH_ASYNC = 'CHECK_AUTH_ASYNC';
 
+export const REQUEST = 'REQUEST';
+
+export const SUCCESS = 'SUCCESS';
+
+export const FAILURE = 'FAILURE';
+
 export const registration = (userData:AuthResponse) => ({
     type: REGISTRATION,
     payload: userData,
@@ -47,4 +53,4 @@ export const checkAuth = (userData:AuthResponse) => ({
 export const checkAuthAsync = () => ({
     type: CHECK_AUTH_ASYNC,
 })
-
+export const successAction = () => ({ type: SUCCESS });

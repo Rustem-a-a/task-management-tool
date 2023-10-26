@@ -7,7 +7,7 @@ export interface ICreateTask{
     workTime?: string;
     deadline?: string;
     priority: string;
-    projectId:string;
+    projectId?:string;
     parentId?:string;
 }
 

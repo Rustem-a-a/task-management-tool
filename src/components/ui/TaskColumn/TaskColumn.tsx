@@ -10,11 +10,6 @@ interface ColumnProps {
 }
 
 const TaskColumn: React.FC<ColumnProps> = ({ column, tasks }) => {
-    const setColor = (name:string)=>{
-        if(name==='Queue')return 'purple'
-        else if(name==='Development')return 'orange'
-        else return 'green'
-    }
     return (
             <Droppable   droppableId={column.id}>
                 {(provided) => (
@@ -25,11 +20,10 @@ const TaskColumn: React.FC<ColumnProps> = ({ column, tasks }) => {
                     >
                         <h1 onClick={()=>{
                         console.log(column.title)}}
-                        // style={{color:setColor(column.title)}}
                         >{column.title}</h1>
 
                         {tasks?.map((task:ITaskResponse, index:number) => (
-                                <TaskCard key={task?._id} task={task} index={index} columnTitle={column.title}/>
+                                <TaskCard key={task?._id} task={task}  index={index} columnTitle={column.title}/>
 
                         ))}
                         {provided.placeholder}

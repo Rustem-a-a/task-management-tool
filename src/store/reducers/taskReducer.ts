@@ -1,4 +1,4 @@
-import {CREATE_TASK,GET_COLUMNS_TASK} from '../actions/taskActions';
+import {CREATE_TASK, EDIT_TASK, GET_COLUMNS_TASK} from '../actions/taskActions';
 import { EDIT_COLUMN } from '../actions/columnActions'
 import {IColumnsTaskResponse} from "../../types/response/response";
 
@@ -28,10 +28,8 @@ const taskReducer = (state=initialState,action:any) =>{
         case GET_COLUMNS_TASK:
             return ({...action.payload})
         case CREATE_TASK:
-            console.log({[action.payload._id]:action.payload})
             return ({...state,tasks:{...state.tasks,[action.payload._id]:action.payload}})
         case EDIT_COLUMN:
-            console.log(action.payload)
             return (
                 {...state,columns:action.payload.columns}
             )

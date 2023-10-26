@@ -7,7 +7,7 @@ import {
     login,
     LOGIN_ASYNC, logout, LOGOUT_ASYNC,
     registration,
-    REGISTRATION_ASYNC,
+    REGISTRATION_ASYNC, successAction,
 } from "../store/actions/authActions";
 
 
@@ -18,6 +18,7 @@ function* registrationWorker (action:any){
     }catch (e:any) {
         console.log(e)
         yield put(errorAction(e.response.data))
+        yield put(successAction())
     }
 }
 
@@ -28,6 +29,8 @@ function* loginWorker (action:any){
     }catch (e:any) {
         console.log(e)
         yield put(errorAction(e.response.data))
+        yield put(successAction())
+
     }
 }
 
@@ -37,16 +40,18 @@ function* logoutWorker (){
         yield put(logout())
     }catch (e:any) {
         console.log(e)
+        yield put(successAction())
+
     }
 }
 
 function* checkAuthWorker (){
     try{
         const {data} = yield call(AuthService.refresh)
-        console.log(data)
-        yield put(checkAuth(data.user))
+        yield put(checkAuth(data))
     }catch (e) {
         console.log(e)
+        yield put(successAction())
 
     }
 }

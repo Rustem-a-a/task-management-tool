@@ -2,15 +2,34 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  .projects{
-    display: grid;
-    //grid-template-columns: ;
-    grid-auto-rows: 30px;
-    flex-grow: 1;
-    box-sizing: border-box;
-    background: white;
-    border-top-left-radius: 8px;
-    padding: 10px;
 
+  .projectsTable{
+    //border-top-left-radius: 8px;
+    //min-height: 100%;
+    //background-color: white;
+    .projects{
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      grid-auto-rows: 30px;
+      flex-grow: 1;
+      box-sizing: border-box;
+      padding: 10px;
+      margin-bottom: 3px;
+      align-items: center;
+      background-color: #e8f5f8;
+      a{
+        text-decoration: none;
+        color: black;
+      }
+      p{
+        font-weight: bold;
+      }
   }
+    .projectsHeader{
+      border-top-left-radius: 8px;
+      background-color: #d4f1fa;
+
+    }
+
+    }
   }

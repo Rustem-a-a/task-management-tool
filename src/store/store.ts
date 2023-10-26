@@ -28,6 +28,7 @@ export interface RootState {
         user:IUser;
         isAuth: boolean;
         stateError: IErrorResponse;
+        isLoadingAuth: boolean
     }
 }
 

@@ -43,9 +43,9 @@ export const editTask = (editedTask: ITaskResponse) => ({
     type: EDIT_TASK,
     payload: editedTask,
 });
-export const editTaskAsync = (editTaskData: IEditTask) => ({
+export const editTaskAsync = (editTaskData: IEditTask,projectId:string) => ({
     type: EDIT_TASK_ASYNC,
-    payload: editTaskData,
+    payload: {editTaskData,projectId},
 });
 
 export const deleteTask = (deletedTask: ITaskResponse) => ({

@@ -1,4 +1,4 @@
-.addTaskForm {
+.addProjectForm {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,15 +29,17 @@
   width: 100%;
   h2{
     line-height: 5px;
-  }
-
-}
     label {
       margin-bottom: 5px;
       display: flex;
       justify-content: flex-start;
     }
-
+  }
+  .error{
+    color: #0000ff;
+    margin:5px 0 15px 0;
+  }
+}
     button {
       width: 100%;
       padding: 10px;

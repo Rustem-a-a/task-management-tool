@@ -26,9 +26,10 @@ export interface ITaskResponse{
     priority: string;
     attachments: string[];
     status: string;
-    subTasks: string[];
+    subtasks: string[];
     comments: string[];
     author:string;
+    child:boolean;
 }
 export interface IColumnsResponse{
             id: string;
@@ -39,4 +40,12 @@ export interface IColumnsResponse{
 export interface IColumnsTaskResponse{
     columns:{[key:string]:IColumnsResponse};
     tasks: {[key:string]:ITaskResponse};
+}
+
+export interface ICommentsResponse{
+    text:string;
+    author: string;
+    createdAt: string;
+    subcomments: string;
+
 }

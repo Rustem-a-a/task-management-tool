@@ -6,14 +6,13 @@ import {
     deleteTask, EDIT_TASK_ASYNC,
     editTask,
     GET_COLUMNS_TASK_ASYNC,
-    getColumnsTask
+    getColumnsTask, getColumnsTaskAsync
 } from "../store/actions/taskActions";
 import {editColumn} from "../store/actions/columnActions";
 
 function* getTaskWorker (action:any){
     try{
         const {data} = yield call(TaskService.getColumnsTask,action.payload)
-        console.log(data)
         yield put(getColumnsTask(data))
     }catch (e) {
         console.log(e)
@@ -23,9 +22,12 @@ function* getTaskWorker (action:any){
 function* createTaskWorker (action:any){
     try{
         const {data} = yield call(TaskService.createTask, action.payload)
-        console.log(data)
+        if(data.updatedTask){
+            yield put(createTask(data.updatedTask))
+        }
         yield put(createTask(data.newTask))
         yield put(editColumn(data.columns))
+
     }catch (e:any) {
         console.log(e)
     }
@@ -33,9 +35,10 @@ function* createTaskWorker (action:any){
 
 function* editTaskWorker (action:any){
     try{
-        const {data} = yield call(TaskService.editTask, action.payload)
+        const {data} = yield call(TaskService.editTask, action.payload.editTaskData)
         yield put(editTask(data))
-    }catch (e:any) {
+        yield put(getColumnsTaskAsync(action.payload.projectId))
+   }catch (e:any) {
         console.log(e)
     }
 }

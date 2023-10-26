@@ -1,5 +1,4 @@
 import axios from "axios";
-import {AuthResponse} from "../types/response/response";
 import AuthService from "../services/AuthService";
 
 export const API_URL = 'http://localhost:4000'
@@ -10,7 +9,8 @@ const $api = axios.create({
 })
 
 $api.interceptors.request.use((config)=>{
-    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+    const token = localStorage.getItem('token');
+    config.headers.Authorization = `Bearer ${token}`
     return config
 })
 
@@ -24,7 +24,7 @@ $api.interceptors.response.use(config => {
             const {data} = await AuthService.refresh()
             localStorage.setItem('token',data.accessToken)
             return $api.request(originalRequest)
-        }catch (e){
+        }catch (e:any){
             console.log('Do not authorized')
         }
     }

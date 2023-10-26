@@ -1,0 +1,84 @@
+.subtasks {
+  margin-top: 4%;
+  width: 100%;
+  position: relative;
+  .taskActionsAddTask{
+    display: flex;
+    align-items: center;
+    gap:10px;
+    font-weight: bold;
+    span{
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      img{
+        height: 25px;
+        width: 25px;
+        cursor: pointer;
+      }
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+  .purple{
+    background-color: rgb(248, 250, 216);
+
+  }
+  .green{
+    background-color: rgb(224, 255, 219);
+  }
+  .orange{
+    background-color: #ffe3cb;
+  }
+  .subtaskInfo {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    height: auto;
+    box-sizing: border-box;
+    .subtaskTitleStatus{
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      box-sizing: border-box;
+      border-bottom: 2px solid #779398;
+      margin-bottom: 5%;
+
+      .subtaskTitle {
+        color: #333;
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      .subtaskStatus{
+        display: flex;
+
+        p{
+          margin-left: 10px;
+          font-weight: bold;
+        }
+        p:hover{
+          cursor: pointer;
+          color: #779398;
+        }
+      }
+    }
+    .infoItem {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 5px;
+
+      .infoLabel {
+        font-weight: bold;
+        color: #000000;
+      }
+
+      .infoValue {
+        color: #777;
+      }
+    }
+  }
+}

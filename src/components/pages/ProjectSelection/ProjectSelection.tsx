@@ -25,15 +25,32 @@ const ProjectSelection: FC = () => {
                          nameFor={'Add project'} onSelectFilter={handleFilterSelect}/>
 
                    {isAuth &&
-                    projects.filter(v => v.name.toLowerCase().includes(searchValue.toLowerCase())).sort((a,b)=>a?.[filterValue]?.localeCompare(b?.[filterValue])).map(project => (
-                        <div className={styles.projects}>
-                            <Link   onClick={()=>{dispatch(getColumnsTaskAsync(project._id))}}
-                                    key={project._id} to={`/${project._id}`}>
-                            <p>{project.name}</p>
-                        </Link>
-                        </div>
+                       <div className={styles.projectsTable}>
+                            <div className={`${styles.projects} ${styles.projectsHeader}`}>
+                                <h3>Project name</h3>
+                                <h3>Start</h3>
+                                <h3>Deadline</h3>
+                                <h3>Finish</h3>
+                            </div>
+                           {isAuth &&
+                               projects.filter(v => v.name.toLowerCase().includes(searchValue.toLowerCase()))
+                                   .sort((a,b)=>a?.[filterValue]?.localeCompare(b?.[filterValue]))
+                                   .map(project => (
+                                       <div key={project._id} className={styles.projects}>
+                                           <Link   onClick={()=>{dispatch(getColumnsTaskAsync(project._id))}}
+                                                   key={project._id} to={`/${project._id}`}>
+                                               <p>{project.name}</p>
+                                           </Link>
+                                           <p>{project.start.split('T')[0]}</p>
+                                           <p>{project.deadline.split('T')[0]}</p>
+                                           <p>{project.finish ? project.finish.split('T')[0] : 'In progress'}</p>
+                                       </div>
 
-                    ))}
+                                   ))}
+                       </div>
+
+
+                    }
 
             {
                 isModal && <Modal setIsModal={setIsModal}><ProjectAddModal setIsModal={setIsModal}/></Modal>

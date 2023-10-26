@@ -15,7 +15,7 @@ class TaskService{
     }
 
     static async editTask (editTaskData: IEditTask):Promise<AxiosResponse<ITaskResponse>>{
-        return  $api.post<ITaskResponse>('/task/edit', editTaskData)
+        return  $api.patch<ITaskResponse>('/task/edit', editTaskData)
 
     }
     static async deleteTask (deleteTaskData:{projectId:string, taskId:string,parentId: string}):Promise<AxiosResponse<ITaskResponse>>{
