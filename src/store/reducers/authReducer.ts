@@ -1,48 +1,68 @@
-import {ADD_PROJECT} from "../actions/projectActions";
-import {Project} from "../../types";
 import {IUser} from "../../types/IUser";
-import {CHECK_AUTH, ERR, LOGIN, LOGOUT, REGISTRATION} from "../actions/authActions";
+import {CHECK_AUTH, ERR, LOGIN, LOGOUT, REGISTRATION, SUCCESS} from "../actions/authActions";
 import {IErrorResponse} from "../../types/response/errorResponse";
 
-interface IInitialState{
-    user:IUser;
+interface IInitialState {
+    user: IUser;
     isAuth: boolean;
-    stateError:IErrorResponse
+    stateError: IErrorResponse,
+    isLoadingAuth: boolean
 }
-export const initialState:IInitialState = {
-    user: {} as IUser,
-    isAuth : false,
-    stateError: {} as IErrorResponse
+
+export const initialState: IInitialState = {
+    user: {
+        id: '',
+        username: '',
+        email: '',
+        isActivated: false
+    },
+    isAuth: false,
+    isLoadingAuth: true,
+    stateError: {} as IErrorResponse,
 }
 
 
 const authReducer = (state = initialState, action: any) => {
     switch (action.type) {
-            case REGISTRATION:
-                localStorage.setItem('token',action.payload.accessToken)
-                return (
-                {...state, isAuth:true, user:action.payload, stateError:{} as IErrorResponse});
-
-            case LOGIN:
-                localStorage.setItem('token',action.payload.accessToken)
+        case REGISTRATION:
+            localStorage.setItem('token', action.payload.accessToken)
             return (
-                {...state, isAuth:true, user:action.payload, stateError: {} as IErrorResponse});
+                {
+                    ...state,
+                    isAuth: true,
+                    user: {...action.payload.user},
+                    isLoadingAuth: true,
+                    stateError: {} as IErrorResponse
+                });
 
-            case LOGOUT:
-                localStorage.removeItem('token')
+        case LOGIN:
+            localStorage.setItem('token', action.payload.accessToken)
             return (
-                {...state, isAuth:false, user: {} as IUser});
+                {
+                    ...state,
+                    isAuth: true,
+                    user: action.payload.user,
+                    isLoadingAuth: false,
+                    stateError: {} as IErrorResponse
+                });
 
-            case ERR:
-                console.log(action.payload)
+        case LOGOUT:
+            localStorage.removeItem('token')
             return (
-                {...state, stateError:action.payload});
+                {...state, isAuth: false, isLoadingAuth: false, user: {} as IUser});
 
-            case CHECK_AUTH:
-                localStorage.setItem('token',action.payload.accessToken)
-                return (
-                {...state,isAuth:true, user:action.payload, stateError: {} as IErrorResponse}
-                )
+        case ERR:
+            return (
+                {...state, isLoadingAuth: false, stateError: action.payload});
+
+        case CHECK_AUTH:
+            localStorage.setItem('token', action.payload.accessToken)
+            return (
+                {...state, isAuth: true, user: action.payload.user, isLoadingAuth: false, stateError: {} as IErrorResponse}
+            )
+
+        case SUCCESS:
+            return {...state, isLoadingAuth: false};
 
         default:
             return state;

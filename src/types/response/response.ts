@@ -43,9 +43,11 @@ export interface IColumnsTaskResponse{
 }
 
 export interface ICommentsResponse{
+    _id:string;
     text:string;
     author: string;
     createdAt: string;
-    subcomments: string;
+    subcomments: ICommentsResponse[];
+    parentId?:string
 
 }

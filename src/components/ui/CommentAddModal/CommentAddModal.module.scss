@@ -1,0 +1,64 @@
+.addCommentForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 35%;
+  height: 60vh;
+  padding: 10px 40px;
+  background-color: #dcdfec;
+  border-radius: 8px;
+  h1 {
+    text-align: center;
+    background-color: white;
+    width: 100%;
+    border-radius: 8px;
+    padding: 5px;
+  }
+  textarea {
+    width: 100%;
+    height: 20vh;
+    padding: 8px;
+    margin-bottom: 5px;
+    text-align: left;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid gray;
+  }
+  .text{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 16px;
+    width: 100%;
+    h2{
+      line-height: 5px;
+      label {
+        margin-bottom: 5px;
+        display: flex;
+        justify-content: flex-start;
+      }
+    }
+    .error{
+      color: #0000ff;
+      margin:5px 0 15px 0;
+    }
+  }
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #9ab4b9;
+    color: #242425;
+    border: none;
+    cursor: pointer;
+    margin-top: 20px;
+    border-radius: 8px;
+    h2{
+      line-height: 0;
+    }
+
+
+    &:hover {
+      background-color: #779398;
+    }
+  }
+}

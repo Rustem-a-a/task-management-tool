@@ -16,18 +16,22 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #bbd0d2;
-    border-radius: 8px;
+    box-sizing: border-box;
+    //border-radius: 8px;
 
     .tab {
       cursor: pointer;
-      border-radius: 8px;
+      //border-radius: 8px;
       flex-grow: 1;
       text-align: center;
       padding: 8px 0;
+      box-sizing: border-box;
+      border-bottom: 4px #dcdfec solid;
+
 
       &:hover {
-        background-color: #9ab4b9;
+        border-bottom: 4px #258b9f solid;
+
       }
     }
   }

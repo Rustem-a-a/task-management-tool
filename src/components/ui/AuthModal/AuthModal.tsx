@@ -25,7 +25,7 @@ const AuthModal: React.FC<IProps> = ({ setIsModal,isSignIn,isSignUp,setIsSignIn,
     });
     const isAuth = useSelector((state:RootState) => state.user.isAuth)
     const stateError = useSelector((state:RootState) => state.user.stateError)
-    console.log(stateError)
+    // console.log(stateError)
 
     const dispatch = useDispatch()
 
@@ -35,7 +35,7 @@ const AuthModal: React.FC<IProps> = ({ setIsModal,isSignIn,isSignUp,setIsSignIn,
     };
 
     const signIn = async () => {
-            dispatch(loginAsync({username:user.username,password:user.password}))
+           dispatch(loginAsync({username:user.username,password:user.password}))
     }
     const signUp = () => {
         dispatch(registrationAsync({...user}))
@@ -50,7 +50,7 @@ const AuthModal: React.FC<IProps> = ({ setIsModal,isSignIn,isSignUp,setIsSignIn,
     return (
         <div className={styles.addTaskForm}
              onClick={e=>e.stopPropagation()}>
-            <h1>Add project</h1>
+            <h1>Authorization</h1>
 
             <div className={styles.name}>
                 <label><h2>Username:</h2></label>
