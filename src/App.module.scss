@@ -8,6 +8,14 @@
     flex-grow: 1;
     display: flex;
     gap: 10px;
+
+    .entry{
+      height: 60vh;
+      align-self: center;
+      margin: 0 auto;
+      cursor: pointer;
+      text-align: center;
+    }
   }
 }
 

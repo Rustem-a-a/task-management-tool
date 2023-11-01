@@ -7,31 +7,30 @@ import {useDispatch, useSelector} from "react-redux";
 import {checkAuthAsync, logoutAsync, successAction} from "./store/actions/authActions";
 import {getProjectAsync} from "./store/actions/projectActions";
 import {RootState} from "../src/store/store";
-import {ProjectResponse} from "./types/response/response";
+import Modal from "./components/ui/Modal/Modal";
+import AuthModal from "./components/ui/AuthModal/AuthModal";
 
 const LazyLeftSidebar = React.lazy(() => import("./components/ui/LeftSidebar/LeftSidebar"));
 
 
 function App() {
+    const [isModal, setIsModal] = useState<boolean>(false);
+    const [isSignIn, setIsSignIn] = useState<boolean>(false);
+    const [isSignUp, setIsSignUp] = useState<boolean>(false);
     const dispatch = useDispatch()
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            dispatch(checkAuthAsync())
-        } else {
-            dispatch(successAction())
-        }
 
-    }, []);
+    useEffect(() => {
+        if (localStorage.getItem('token')) {dispatch(checkAuthAsync())}
+        else {dispatch(successAction())}
+        }, []);
     const user = useSelector((state: RootState) => state.user)
     const isActivated = user.user && user.user.isActivated;
 
     useEffect(() => {
-        if (isActivated) {
-            dispatch(getProjectAsync())
-        }
+        if (isActivated) {dispatch(getProjectAsync())}
     }, [isActivated]);
-
     const projects = useSelector((state: RootState) => state.projects)
+
     return (
         <div className={styles.App}>
             {!user.isLoadingAuth &&
@@ -46,15 +45,23 @@ function App() {
                                             <LeftSidebar projects={projects}/>
                                             <AppRouter/>
                                         </>
-                                        : <h1>Check your email and click to link to activate your account</h1>
+                                        : <div className={styles.entry}>
+                                            <h1>Check your email for activate your account</h1>
+                                            <img src='/door.svg' alt='entry'/>
+                                        </div>
                                 }
                             </>
                             :
-                            <h1>Please signIn or signUp</h1>
+                            <img onClick={()=>{setIsModal(true)}} className={styles.entry} src='/door.svg' alt='entry'/>
                         }
                     </main>
                 </>
             }
+            {isModal &&
+                <Modal setIsSignUp={setIsSignUp} setIsSignIn={setIsSignIn} setIsModal={setIsModal}>
+                    <AuthModal setIsModal={setIsModal} setIsSignIn={setIsSignIn} setIsSignUp={setIsSignUp}
+                               isSignIn={isSignIn} isSignUp={isSignUp}/>
+                </Modal>}
         </div>
     );
 }

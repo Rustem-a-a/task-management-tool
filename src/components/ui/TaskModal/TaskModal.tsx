@@ -11,6 +11,7 @@ import TasksForModal from "./Tasks/TasksForModal";
 import CommetnsForModal from "./Commetns/CommetnsForModal";
 import CommentAddModal from "../CommentAddModal/CommentAddModal";
 import {getCommentsAsync} from "../../../store/actions/commentActions";
+import AttachmentsForModal from "./Attachments/AttachmentsForModal";
 
 interface IProps {
     task: ITaskResponse
@@ -36,7 +37,7 @@ const TaskModal = ({task,tasks}: IProps) => {
                          setTab('task')
                      }}
                 >
-                    Task info
+                    Task
                 </div>
                 <div className={styles.tab}
                      onClick={() => {
@@ -63,6 +64,7 @@ const TaskModal = ({task,tasks}: IProps) => {
             {tab === 'task' && <TasksForModal task={task}/>}
             {tab === 'subtasks' && <SubtasksForModal setIsSubtaskModal={setIsSubtaskModal} tasks={tasks} task={task}/>}
             {tab === 'comments' && <CommetnsForModal taskId={task._id}  setIsModalAddComments={setIsModalAddComments} comments={comments}/>}
+            {tab === 'attachments' && <AttachmentsForModal task={task}/>}
 
             {
                 isSubtaskModal && <Modal setIsModal={setIsSubtaskModal}><TaskAddModal title='Add subtask' projectId={projectId as string}  parentId={task._id as string} setIsModal={setIsSubtaskModal}/></Modal>

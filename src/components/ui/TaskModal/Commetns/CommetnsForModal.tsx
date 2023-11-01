@@ -15,7 +15,9 @@ const CommentsForModal:FC<IProps> = ({taskId,comments,setIsModalAddComments}) =>
     const [allComments, setAllComments] = useState<ICommentsResponse[]>([]);
     return (
         <div className={styles.comments}>
+            <div className={styles.taskActionsAddTask}>
                   <span onClick={()=>{setIsModalAddComments(true)}}><img src="/addTask.svg" alt="addTask"/>Add comment</span>
+            </div>
         <div className={styles.printedComment}>
             {
                 comments.map(comment=>(<CommentRecursive setParentCommentId={setParentCommentId} setIsReplyModal={setIsReplyModal} allComments={allComments} comment={comment} key={comment._id}/> ))

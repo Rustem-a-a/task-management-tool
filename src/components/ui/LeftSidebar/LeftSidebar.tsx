@@ -1,20 +1,14 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import styles from './LeftSidebar.module.scss'
-import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../store/store";
-import {Project} from "../../../types";
-import {createProject, createProjectAsync} from "../../../store/actions/projectActions";
 import {Link} from "react-router-dom";
 import Modal from "../Modal/Modal";
 import ProjectAddModal from "../ProjectModal/ProjectModal";
 import {ProjectResponse} from "../../../types/response/response";
-
 interface IProps{
     projects:ProjectResponse[]
 }
 const LeftSidebar = ({projects}:IProps) => {
     // const projects = useSelector((state:RootState) => state.projects)
-    const [newProject, setNewProject] = useState<Project>({}as Project);
     const [isModal, setIsModal] = useState<boolean>(false)
     const [searchValue, setSearchValue] = useState<string>('');
     return (

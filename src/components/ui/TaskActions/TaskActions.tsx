@@ -1,6 +1,5 @@
 import React, {FC, useState} from 'react';
 import styles from './TaskActions.module.scss'
-import {Project} from "../../../types";
 type filter = 'start' | 'deadline'
 
 interface IProps  {
@@ -25,26 +24,25 @@ const TaskActions:FC<IProps> = ({searchValue,setSearchValue,setIsModal,nameFor,p
             <h1>{project}</h1>
             <div className={styles.taskActions}>
                 <div className={styles.taskActionsAddTask}>
-
                     <span onClick={()=>{setIsModal(true)}}><img src="/addTask.svg" alt="addTask"/> {nameFor}</span>
                 </div>
                 <input type="text" placeholder='search' className={styles.input}
                        value={searchValue}
-                       onChange={(e)=>setSearchValue(e.target.value)}
-                />
-                <div className={styles.filterDropdown}>
+                       onChange={(e)=>setSearchValue(e.target.value)}                />
+                {onSelectFilter &&
+                    <div className={styles.filterDropdown}>
                     <label htmlFor="filterSelect">Sort:</label>
                     <select
                         id="filterSelect"
                         value={selectedFilter}
                         onChange={handleFilterChange}
-                        className={styles.select}
-                    >
+                        className={styles.select}>
                         <option value="">-- Выбрать --</option>
                         <option value="start">Start</option>
                         <option value="deadline">Deadline</option>
                     </select>
                 </div>
+                }
             </div>
         </div>
     );

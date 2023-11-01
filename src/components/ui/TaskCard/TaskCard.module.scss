@@ -6,12 +6,14 @@
   border-radius: 4px;
   width: 90%;
   box-sizing: border-box;
-
 }
 
 .taskTitle {
   font-size: 24px;
   margin-bottom: 10px;
+  @media (max-width: 1000px) {
+    text-align: center;
+  }
 }
 
 .taskInfo {
@@ -23,7 +25,10 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 5px;
-
+    @media (max-width: 1000px) {
+    flex-direction: column;
+      align-items: center;
+    }
     .infoLabel {
       font-weight: bold;
       color: #333;
@@ -44,3 +49,4 @@
 .orange{
   background-color: #ffe3cb;
 }
+

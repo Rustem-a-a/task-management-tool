@@ -18,9 +18,7 @@ const TaskColumn: React.FC<ColumnProps> = ({ column, tasks }) => {
                         {...provided.droppableProps}
                         className={styles.column}
                     >
-                        <h1 onClick={()=>{
-                        console.log(column.title)}}
-                        >{column.title}</h1>
+                        <p>{column.title}</p>
 
                         {tasks?.map((task:ITaskResponse, index:number) => (
                                 <TaskCard key={task?._id} task={task}  index={index} columnTitle={column.title}/>
